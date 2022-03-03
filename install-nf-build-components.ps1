@@ -72,7 +72,7 @@ DownloadVsixFile $extensionUrl $vsixDownloadPath
 
 # Unzip extension --- TODO: lets use 7zip here for expected results?!
 Write-Host "Unzipping nF VS extension package"
-Expand-Archive -LiteralPath $vsixDownloadPath -DestinationPath $tempDir\nf-extension
+Expand-Archive $vsixDownloadPath $tempDir\nf-extension -Force
 
 $tempCheckDir = Get-ChildItem -Path "$tempDir\nf-extension"
 Write-Host $tempCheckDir
