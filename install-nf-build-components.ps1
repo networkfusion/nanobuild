@@ -72,16 +72,16 @@ DownloadVsixFile $extensionUrl $vsixDownloadPath
 
 # Unzip extension --- TODO: lets use 7zip here for expected results?!
 Write-Host "Unzipping nF VS extension package"
-Expand-Archive $vsixDownloadPath $tempDir\nf-extension -Force
+Expand-Archive -LiteralPath $vsixPath -DestinationPath $tempDir\nf-extension\ | Write-Host
 
 $tempCheckDir = Get-ChildItem -Path "$tempDir\nf-extension"
 Write-Host $tempCheckDir
 
-# copy build files to msbuild location
+# Copy build files to msbuild location
 $VsPath = $(&$VsWherePath -latest -property installationPath)
 
 Write-Host "Copying build files to msbuild location"
-$msbuildPath = $VsPath + "\MSBuild"
+$msbuildPath = Join-Path -Path $VsPath -ChildPath "\MSBuild"
 Write-Host "tempExt Path: $tempDir\nf-extension\`$MSBuild\nanoFramework"
 Write-Host "msbuildPath: $msbuildPath"
 
